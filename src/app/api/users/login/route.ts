@@ -36,14 +36,14 @@ export async function PSOT(request:NextRequest) {
 
         console.log('password is corrext') // only for us
 
-        const accTkn = user.generateAccessToken();
+        const accessToken = user.generateAccessToken();
 
         const reponse  =NextResponse.json({
             message : "Logged In Success",
             success: true
         })
 
-        reponse.cookies.set("token",accTkn,{
+        reponse.cookies.set("token",accessToken,{
             httpOnly:true
         })
 
