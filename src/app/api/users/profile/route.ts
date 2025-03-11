@@ -6,7 +6,7 @@ import { getDataFromToken } from "@/helper/getDataFromToken"
 connect();
 
 
-export async function PSOT(request:NextRequest){
+export async function POST(request:NextRequest){ 
     //extraxt data from token
     const userid = await getDataFromToken(request);
     const user = await User.findOne({_id:userid}).select("-password");

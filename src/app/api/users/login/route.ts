@@ -1,56 +1,48 @@
-import  {connect} from "@/dbconfig/dbconfig"
-import User from "@/models/userModel"
-import bcrypt from "bcryptjs"
+import { connect } from "@/dbconfig/dbconfig";
+import User from "@/models/userModel";
+import bcrypt from "bcryptjs";
+import { NextRequest, NextResponse } from "next/server";
+import { sendEmail } from "@/helper/mailer";
 
-import { NextRequest,NextResponse } from "next/server"
+connect();
 
-import { sendEmail } from "@/helper/mailer"
-
-connect()
-
-
-export async function PSOT(request:NextRequest) {
+export async function POST(request: NextRequest) {
     try {
-        const reqBody = await request.json()
-        const { email ,password} = reqBody()
-        //vaildation
+        const reqBody = await request.json();
+        const { email, password } = reqBody;  
+
+        // Validation
         console.log(reqBody);
 
-        const user = await User.findOne({email});
-        if(!user){
-            return NextResponse.json({error : "User Not Found"},
-                {status:400}
-            )
+        const user = await User.findOne({ email });
+        if (!user) {
+            return NextResponse.json({ error: "User Not Found" }, { status: 400 });
         }
-        console.log("user hai");
+        console.log("User found");
 
-        // const vaildPassword = await bcrypt.compare(password,user.password);
-
-        const vaildPassword = user.isPasswordCorrect(password);
-
-        if(!vaildPassword){
-            return NextResponse.json({error:"Passowrd is Wrong"},{
-                status:400
-            })
+        // Check password (Use await)
+        const validPassword = await user.isPasswordCorrect(password);
+        if (!validPassword) {
+            return NextResponse.json({ error: "Password is Wrong" }, { status: 400 });
         }
 
-        console.log('password is corrext') // only for us
+        console.log("Password is correct");
 
+        // Generate Access Token
         const accessToken = user.generateAccessToken();
 
-        const reponse  =NextResponse.json({
-            message : "Logged In Success",
+        // Create response
+        const response = NextResponse.json({
+            message: "Logged In Success",
             success: true
-        })
+        }, { status: 200 });
 
-        reponse.cookies.set("token",accessToken,{
-            httpOnly:true
-        })
+        // Set cookie
+        response.cookies.set("token", accessToken, { httpOnly: true });
 
-        return reponse
+        return response;
 
-
-    } catch (error:any) {
-        return NextResponse.json({error : error.messaage},{status:500})
+    } catch (error: any) {
+        return NextResponse.json({ error: error.message }, { status: 500 });  
     }
 }
