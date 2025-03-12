@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema(
     forgetPasswordTokenExpiry: Date,
     verifyToken: String,
     verifyTokenExpiry: Date,
+    refreshToken: { type: String },
 
     // Primary User Fields (YouTube Account Linking)
     googleId: { type: String }, // Google OAuth ID (Only for Primary Users)
@@ -21,7 +22,7 @@ const userSchema = new mongoose.Schema(
     // Secondary User Fields (Joining via Token)
     primaryUser: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Primary user reference
     inviteToken: { type: String }, // Token for secondary users to join
-    refreshToken: { type: String },
+    
   },
   {
     timestamps: true,
