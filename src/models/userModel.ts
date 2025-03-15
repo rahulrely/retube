@@ -33,7 +33,9 @@ interface IUser extends Document {
 const userSchema = new Schema<IUser>(
   {
     name: { type: String, required: true },
-    email: { type: String, unique: true, required: true, index: true },
+    email: { type: String, unique: true, required: true, index: true,
+      match:/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
+     },
     password: { type: String, required: true },
     role: { type: String, enum: ["primary", "secondary"], required: true },
     isVerified: { type: Boolean, default: false },

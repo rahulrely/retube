@@ -1,7 +1,21 @@
-import mongoose from "mongoose";
+import mongoose, { Model ,Document,Schema} from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
-const videoSchema = new mongoose.Schema({
+
+interface IVideo extends Document {
+    uploader : Object;
+    approver :Object;
+    title :string;
+    description : string;
+    tags: [];
+    filePath:string;
+    duration:Number;
+    youtubeVideoId:string;
+    status : string;
+    approvedAt:Date;
+}
+
+const videoSchema = new mongoose.Schema<IVideo>({
     uploader: { type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
@@ -42,6 +56,6 @@ const videoSchema = new mongoose.Schema({
 
 videoSchema.plugin(mongooseAggregatePaginate);
 
-const Video = mongoose.models.video || mongoose.model("videos",userSchema);
+const Video :Model<IVideo>= mongoose.models.video || mongoose.model<IVideo>("videos",videoSchema);
 
 export default Video;
