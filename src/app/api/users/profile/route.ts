@@ -1,10 +1,9 @@
-import  {connect} from "@/dbconfig/dbconfig"
 import User from "@/models/userModel"
 import { NextRequest,NextResponse } from "next/server"
 import { getDataFromToken } from "@/helper/getDataFromToken"
+import dbConnect from "@/lib/dbConnect";
 
-connect();
-
+dbConnect();
 
 export async function POST(request:NextRequest){ 
     //extraxt data from token

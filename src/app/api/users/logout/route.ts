@@ -1,9 +1,8 @@
-import  {connect} from "@/dbconfig/dbconfig"
+import dbConnect from "@/lib/dbConnect"
 import { NextRequest,NextResponse } from "next/server"
 
 
-connect()
-
+dbConnect()
 export async function POST(request:NextRequest) {
     try {
         const response = NextResponse.json({
