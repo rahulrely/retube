@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
     <NavBarHome/>
-    <section className="max-w-5xl mx-auto p-6 space-y-10">
+    <section className="max-w-5xl mx-auto p-6 space-y-10 text-gray-300">
   <div className="space-y-4">
     <h1 className="text-4xl font-bold">About Retube</h1>
     <p className="text-lg">

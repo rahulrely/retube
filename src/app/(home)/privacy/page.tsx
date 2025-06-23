@@ -6,9 +6,9 @@ export default function Home(){
   return (
     <>
     <NavBarHome/>
-    <main className="max-w-4xl mx-auto px-6 py-12 text-gray-800">
+    <main className="max-w-4xl mx-auto mt-5 px-6 py-12 text-gray-300">
       <h1 className="text-4xl font-bold mb-4">Privacy Policy</h1>
-      <p className="text-sm text-gray-500 mb-8">Effective Date: June 23, 2025</p>
+      <p className="text-sm text-gray-400 mb-8">Effective Date: June 23, 2025</p>
 
       <section className="space-y-6">
         <div>
@@ -83,16 +83,6 @@ export default function Home(){
           <p>
             We may update this Privacy Policy from time to time. You will be notified of significant changes via email or app
             notification.
-          </p>
-        </div>
-
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">9. Contact Us</h2>
-          <p>
-            If you have any questions about this Privacy Policy, contact us at{' '}
-            <a href="mailto:aksrahul@hotmail.com" className="text-blue-600 hover:underline">
-              aksrahul@hotmail.com
-            </a>.
           </p>
         </div>
       </section>

@@ -180,6 +180,10 @@ function RegisterForm() {
               </form>
               </Form>
           </div>
+          <p>
+          By Registering, you agree to our <Link href="/privacy" className="mt-4 text-blue-200 hover:underline">Privacy Policy </Link> and <Link href="/terms" className="mt-4 text-blue-200 hover:underline">Terms & Conditions.</Link>
+          <br/>
+          </p>
           <Link href="/login" className="mt-4 text-blue-400 hover:underline">If already registered, click to Login</Link>
         </div>
       </div>

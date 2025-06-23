@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function Footer() {
     return (
@@ -13,7 +14,15 @@ export default function Footer() {
             <span className='text-gray-300 text-sm'>Handcrafted by <a href='https://www.linkedin.com/in/rahulrely'  target='_blank' className='text-[#107678]'>@rahulrely</a></span>
                     </div>                    
                     <div className="pt-4  text-sm  text-gray-400 ">
-                    <p>For questions or support, contact us at <a href="mailto:aksrahul@hotmail.com"  className="text-blue-600">aksrahul@hotmail.com</a>.</p>
+                    <div className="grid gap-3 m-3">
+                <Link href="/terms" className="text-gray-300 hover:text-white font-medium text-sm ">
+                    Terms & Conditions
+                </Link>
+                <Link href="/privacy" className="text-gray-300 hover:text-white font-medium text-sm">
+                    Privacy Policy
+                </Link>
+                    <div>For questions or support, contact us at <a href="mailto:aksrahul@hotmail.com"  className="text-blue-600">aksrahul@hotmail.com</a>.</div>
+                </div>
                     
                     </div>
                                       

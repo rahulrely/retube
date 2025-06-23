@@ -5,7 +5,7 @@ export default function Home(){
   return (
     <>
     <NavBarHome/>
-    <main className="max-w-4xl mx-auto px-6 py-12 text-gray-800">
+    <main className="max-w-4xl mx-auto mt-5 px-6 py-12 text-gray-300">
       <h1 className="text-4xl font-bold mb-4">Terms of Service</h1>
       <p className="text-sm text-gray-500 mb-8">Effective Date: June 23, 2025</p>
 
@@ -87,16 +87,6 @@ export default function Home(){
           <p>
             We may update these terms periodically. Continued use of Retube after changes indicates acceptance of the new
             terms.
-          </p>
-        </div>
-
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">10. Contact Us</h2>
-          <p>
-            If you have any questions about these Terms, please contact us at{' '}
-            <a href="mailto:aksrahul@hotmail.com" className="text-blue-600 hover:underline">
-              aksrahul@hotmail.com
-            </a>.
           </p>
         </div>
       </section>
