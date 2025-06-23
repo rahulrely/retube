@@ -35,7 +35,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     } catch (error) {
       console.error("Error In Logut",error)
       const axiosError = error as AxiosError;
-      let errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Logging out Failed";
+      const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Logging out Failed";
       toast.error("Logging Out Failed",{
         description: errorMessage,
       });

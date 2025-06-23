@@ -23,7 +23,7 @@ export default function Home() {
       <li><strong>Secondary Users</strong> join a Primary User using the invite token.</li>
       <li>Secondary Users upload videos to Retube.</li>
       <li>Primary Users review uploaded videos and approve or reject them.</li>
-      <li>Approved videos are uploaded directly to the Primary User's YouTube channel.</li>
+      <li>Approved videos are uploaded directly to the Primary User&apos;s YouTube channel.</li>
     </ol>
   </div>
 

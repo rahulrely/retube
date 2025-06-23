@@ -53,7 +53,16 @@ function VidPrimary() {
     tags: [],
     cloudinaryPublicID: '',
   });
-
+  
+  const form = useForm<videoInputFinal>({
+    resolver: zodResolver(videoSchemaFinal),
+    defaultValues: {
+      title: video.title,
+      description: video.description,
+      tags: video.tags,
+      categoryId: "22"
+    }
+  });
   useEffect(() => {
     const fetchVideo = async () => {
       try {
@@ -83,17 +92,9 @@ function VidPrimary() {
     };
 
     fetchVideo();
-  }, [vid]);
+    form.reset();
+  }, [vid,form]);
 
-  const form = useForm<videoInputFinal>({
-    resolver: zodResolver(videoSchemaFinal),
-    defaultValues: {
-      title: video.title,
-      description: video.description,
-      tags: video.tags,
-      categoryId: "22"
-    }
-  });
 
   const onSubmit = async (data: videoInputFinal) => {
     setIsSubmitting(true);

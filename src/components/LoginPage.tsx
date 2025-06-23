@@ -44,7 +44,7 @@ function LoginPage() {
     } catch (error) {
       console.error("Error In Login",error)
       const axiosError = error as AxiosError;
-      let errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Logging Failed";
+      const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Logging Failed";
       toast.error("Logging In Failed",{
         description: errorMessage,
       });

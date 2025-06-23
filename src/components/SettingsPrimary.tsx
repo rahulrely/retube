@@ -142,7 +142,7 @@ function SettingsPrimary() {
           <h5 className="border border-solid border-gray-400 rounded-lg p-1.5 pl-6 m-1.5">
             {userDetails.role}
           </h5>
-          <h1 className="text-gray-400">Linked User's Name</h1>
+          <h1 className="text-gray-400">Linked User&apos;s Name</h1>
           <h5 className="border border-solid border-gray-400 rounded-lg p-1.5 pl-6 m-1.5">
             {userDetails.linkedUserName}
           </h5>

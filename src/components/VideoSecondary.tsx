@@ -31,12 +31,22 @@ import { FileUpload } from "@/components/ui/file-upload";
 import { Input } from "@/components/ui/input"
 import { Loader2} from 'lucide-react';
 function VideoSecondary(){
+  type VideoType = {
+  vid: string;
+  title: string;
+  description?: string;
+  youtubeVideoId:string;
+  filePath?: string;
+  cloudinaryPublicID?: string;
+  status: string;
+};
+
     const router = useRouter();
     const [tagsInput, setTagsInput] = useState("");
     const [files, setFiles] = useState<File[]>([]);
     const [isSubmiting,setIsSubmitting] = useState(false);
     const [submitted,setSubmitted] = useState(false);
-    const [videos, setVideos] = useState<any[]>([]);
+    const [videos, setVideos] = useState<VideoType[]>([]); //error
     const handleFileUpload = (files: File[]) => {
       setFiles(files);
       console.log(files);
@@ -49,18 +59,19 @@ function VideoSecondary(){
         const videos = response?.data?.data?.videos || [];
 
         const formatted = videos
-          .filter((v: any) => v)
-          .map((video: any) => ({
+          .filter((v:VideoType) => v) //error
+          .map((video: VideoType) => ({
             vid: video.vid,
             title: video.title?.length > 20
               ? video.title.slice(0, 17) + '...'
               : video.title,
-            description: video.description?.length > 50
-              ? video.description.slice(0, 47) + '...'
+            description: (video.description ?? ' ').length > 50
+              ? (video.description ?? ' ').slice(0, 47) + '...'
               : video.description,
-            status: video.status,
+            youtubeVideoId: video.youtubeVideoId,
             filePath: video.filePath,
             cloudinaryPublicID: video.cloudinaryPublicID,
+            status: video.status,
           }));
 
         setVideos(formatted);
@@ -87,7 +98,7 @@ function VideoSecondary(){
     setFiles([]);        
     setSubmitted(false); 
   }
-}, [submitted]);
+}, [submitted,form]);
     
   const onSubmit = async (data: videoInput) => {
     setIsSubmitting(true);
@@ -116,7 +127,7 @@ function VideoSecondary(){
       });
     } catch (error) {
       const axiosError = error as AxiosError;
-      let errorMessage = (axiosError.response?.data as { message: string })?.message ?? "Error in Uploading";
+      const errorMessage = (axiosError.response?.data as { message: string })?.message ?? "Error in Uploading";
       toast.error("Uploading Process Failed", {
         description: errorMessage,
       });
@@ -164,14 +175,14 @@ function VideoSecondary(){
             </TableRow>
           </TableHeader>
           <TableBody>
-            {videos.map((vid :any) => (
-              <TableRow key={vid.vid}>
-                <TableCell onClick={() => handleClick(vid.vid)} className="hover:text-gray-300">{vid.vid}</TableCell>
-                <TableCell>{vid.title}</TableCell>
-                <TableCell>{vid.description}</TableCell>
-                <TableCell><StatusIcon youtubeVideoId={vid.youtubeVideoId} status={vid.status}/></TableCell>
-                <TableCell><Download href={vid.filePath} cloudinaryPublicID ={vid.cloudinaryPublicID} status={vid.status}/></TableCell>
-                <TableCell>{vid.status}</TableCell>
+            {videos.map((video :VideoType) => (
+              <TableRow key={video.vid}>
+                <TableCell onClick={() => handleClick(video.vid)} className="hover:text-gray-300">{video.vid}</TableCell>
+                <TableCell>{video.title}</TableCell>
+                <TableCell>{video.description}</TableCell>
+                <TableCell><StatusIcon youtubeVideoId={video.youtubeVideoId} status={video.status}/></TableCell>
+                <TableCell><Download href={video.filePath ?? ""} cloudinaryPublicID={video.cloudinaryPublicID ?? ""} status={video.status} /></TableCell>
+                <TableCell>{video.status}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -14,7 +14,17 @@ import {
 } from "@/components/ui/table";
 import { Download, StatusIcon } from "@/components/CustomIcon";
 function VideoPrimary(){
-    const [videos, setVideos] = useState<any[]>([]);
+  type VideoType = {
+  vid: string;
+  title: string;
+  description?: string;
+  youtubeVideoId:string;
+  filePath?: string;
+  cloudinaryPublicID?: string;
+  status: string;
+};
+
+    const [videos, setVideos] = useState<VideoType[]>([]);
     const router = useRouter();
 
     useEffect(() => {
@@ -24,14 +34,14 @@ function VideoPrimary(){
         const videos = response?.data?.data?.videos || [];
 
         const formatted = videos
-          .filter((v: any) => v)
-          .map((video: any) => ({
+          .filter((v:VideoType) => v) //error
+          .map((video: VideoType) => ({
             vid: video.vid,
             title: video.title?.length > 20
               ? video.title.slice(0, 17) + '...'
               : video.title,
-            description: video.description?.length > 50
-              ? video.description.slice(0, 47) + '...'
+            description: (video.description ?? ' ').length > 50
+              ? (video.description ?? ' ').slice(0, 47) + '...'
               : video.description,
             youtubeVideoId: video.youtubeVideoId,
             filePath: video.filePath,
@@ -90,14 +100,14 @@ function VideoPrimary(){
             </TableRow>
           </TableHeader>
           <TableBody>
-            {videos.map((vid :any) => (
-              <TableRow key={vid.vid}>
-                <TableCell onClick={() => handleClick(vid.vid)} className="hover:text-gray-300">{vid.vid}</TableCell>
-                <TableCell>{vid.title}</TableCell>
-                <TableCell>{vid.description}</TableCell>
-                <TableCell><StatusIcon youtubeVideoId={vid.youtubeVideoId} status={vid.status}/></TableCell>
-                <TableCell><Download href={vid.filePath} cloudinaryPublicID ={vid.cloudinaryPublicID} status={vid.status}/></TableCell>
-                <TableCell>{vid.status}</TableCell>
+            {videos.map((video :VideoType) => (
+              <TableRow key={video.vid}>
+                <TableCell onClick={() => handleClick(video.vid)} className="hover:text-gray-300">{video.vid}</TableCell>
+                <TableCell>{video.title}</TableCell>
+                <TableCell>{video.description}</TableCell>
+                <TableCell><StatusIcon youtubeVideoId={video.youtubeVideoId} status={video.status}/></TableCell>
+                <TableCell><Download href={video.filePath ?? ""} cloudinaryPublicID={video.cloudinaryPublicID ?? ""} status={video.status} /></TableCell>
+                <TableCell>{video.status}</TableCell>
               </TableRow>
             ))}
           </TableBody>

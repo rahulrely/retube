@@ -31,11 +31,19 @@ import {
 import { useRouter } from 'next/navigation';
 
 function RawPrimary(){
+type RawVideo = {
+    vid: string;
+    title: string;
+    instructions?: string;
+    status: string;
+    filePath?: string;
+    cloudinaryPublicID?: string;
+};
     const router = useRouter();
     const [files, setFiles] = useState<File[]>([]);
     const [isSubmiting,setIsSubmitting] = useState(false);
     const [submitted,setSubmitted] = useState(false);
-    const [rawVideos, setRawVideos] = useState<any[]>([]);
+    const [rawVideos, setRawVideos] = useState<RawVideo[]>([]);
     const handleFileUpload = (files: File[]) => {
       setFiles(files);
       console.log(files);
@@ -51,6 +59,7 @@ function RawPrimary(){
   });
 
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -58,15 +67,15 @@ function RawPrimary(){
         const rawVideos = response?.data?.data?.rawVideos || [];
 
         const formatted = rawVideos
-          .filter((v: any) => v)
-          .map((video: any) => ({
+          .filter((v: RawVideo) => v)
+          .map((video: RawVideo) => ({
             vid: video.vid,
             title: video.title?.length > 20
               ? video.title.slice(0, 17) + '...'
               : video.title,
-            instructions: video.instructions?.length > 50
-              ? video.instructions.slice(0, 47) + '...'
-              : video.instructions,
+            instructions: (video.instructions ?? '').length > 50
+              ? (video.instructions ?? '').slice(0, 47) + '...'
+              : video.instructions ?? '',
             status: video.status,
             filePath: video.filePath,
             cloudinaryPublicID: video.cloudinaryPublicID,
@@ -77,9 +86,9 @@ function RawPrimary(){
         console.error("Error fetching raw videos:", error);
       }
     };
-
     fetchData();
-  }, [isSubmiting]);
+    form.reset();
+  }, [isSubmiting,form]);
 
   useEffect(() => {
   if (submitted) {
@@ -148,13 +157,13 @@ const handleClick = (vid: string) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {rawVideos.map((video : any) => (
+          {rawVideos.map((video : RawVideo) => (
             <TableRow key={video.vid}>
               <TableCell onClick={() => handleClick(video.vid)} className="hover:text-gray-300">{video.vid}</TableCell>
               <TableCell>{video.title}</TableCell>
               <TableCell>{video.instructions}</TableCell>
               <TableCell>{video.status}</TableCell>
-              <TableCell><Download2 href={video.filePath} cloudinaryPublicID ={video.cloudinaryPublicID} status={video.status}/></TableCell>
+              <TableCell><Download2 href={video.filePath ?? ""} cloudinaryPublicID={video.cloudinaryPublicID ?? ""} status={video.status} /></TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState , use } from 'react'
+import React, { useEffect, useState } from 'react'
 import VideoPlayer from '@/components/VideoPlayer';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
@@ -56,7 +56,7 @@ function VideoPage({ params }: { params: { vid: string } }) {
           cloudinaryPublicID: videoData.cloudinaryPublicID || '',
         });
 
-        videoData.cloudinaryPublicID
+        videoData.cloudinaryPublicID;
       } catch (error) {
         console.error("Error fetching video:", error);
       } finally {

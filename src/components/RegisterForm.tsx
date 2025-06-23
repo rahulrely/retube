@@ -34,7 +34,7 @@ const isValidEmail = (email: string) => {
 function RegisterForm() {
   const [email,setEmail] = useState("");
   const [emailMessage,setEmailMessage] = useState("");
-  const [isCheckingEmail,setIsCheckingEmail] = useState(false);
+  const [,setIsCheckingEmail] = useState(false);
   const [isSubmiting,setIsSubmitting] = useState(false);
   //debounce
   const debounced = useDebounceCallback(setEmail,300);

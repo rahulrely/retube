@@ -43,7 +43,7 @@ function PrimaryLink() {
     } catch (error) {
       console.error("Error in Linking Accounts",error)
       const axiosError = error as AxiosError;
-      let errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error in linking Accounts";
+      const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error in linking Accounts";
       toast.error("Accounts linking failed",{
         description: errorMessage,
       });
@@ -64,7 +64,7 @@ function PrimaryLink() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Primary User's Email</FormLabel>
+                    <FormLabel>Primary User&apos;s Email</FormLabel>
                     <FormControl>
                       <Input placeholder="mail@example.com" {...field}
                       />

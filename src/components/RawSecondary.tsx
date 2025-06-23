@@ -16,7 +16,15 @@ import {
 } from "@/components/ui/table"
 
 function RawSecondary(){
-    const [rawVideos, setRawVideos] = useState<any[]>([]);
+  type RawVideo = {
+  vid: string;
+  title: string;
+  instructions?: string;
+  status: string;
+  filePath?: string;
+  cloudinaryPublicID?: string;
+};
+    const [rawVideos, setRawVideos] = useState<RawVideo[]>([]);
     const router = useRouter();
     
     useEffect(() => {
@@ -26,19 +34,19 @@ function RawSecondary(){
             const rawVideos = response?.data?.data?.rawVideos || [];
 
             const formatted = rawVideos
-            .filter((v: any) => v)
-            .map((video: any) => ({
-                vid: video.vid,
-                title: video.title?.length > 20
+          .filter((v: RawVideo) => v) //error
+          .map((video: RawVideo) => ({
+            vid: video.vid,
+            title: video.title?.length > 20
               ? video.title.slice(0, 17) + '...'
               : video.title,
-            instructions: video.instructions?.length > 50
-              ? video.instructions.slice(0, 47) + '...'
-              : video.instructions,
-                status: video.status,
-                filePath: video.filePath,
-                cloudinaryPublicID: video.cloudinaryPublicID,
-            }));
+            instructions: (video.instructions ?? '').length > 50
+              ? (video.instructions ?? '').slice(0, 47) + '...'
+              : video.instructions ?? '',
+            status: video.status,
+            filePath: video.filePath,
+            cloudinaryPublicID: video.cloudinaryPublicID,
+          }));
             console.log(rawVideos[0])
             setRawVideos(formatted);
         } catch (error) {
@@ -87,13 +95,13 @@ function RawSecondary(){
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {rawVideos.map((video :any) => (
+                {rawVideos.map((video :RawVideo) => (
                     <TableRow key={video.vid}>
                     <TableCell onClick={() => handleClick(video.vid)} className="hover:text-gray-300">{video.vid}</TableCell>
                     <TableCell>{video.title}</TableCell>
                     <TableCell>{video.instructions}</TableCell>
                     <TableCell>{video.status}</TableCell>
-                    <TableCell onClick={()=>statusClick(video.vid) }><Download2 href={video.filePath} cloudinaryPublicID ={video.cloudinaryPublicID} status={video.status}/></TableCell>
+                    <TableCell onClick={()=>statusClick(video.vid) }><Download2 href={video.filePath ?? ""} cloudinaryPublicID={video.cloudinaryPublicID ?? ""} status={video.status}/></TableCell>
                     </TableRow>
                 ))}
             </TableBody>

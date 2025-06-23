@@ -21,7 +21,7 @@ function InputOTPForm() {
     },
   })
 
-  const onSubmit = async(data: VerifyCodeInput)=> {
+  const onSubmit = async()=> {
     setIsSubmitting(true);
     try {
       // const response = await axios.post("/api/users/verify",data);
