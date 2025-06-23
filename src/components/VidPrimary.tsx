@@ -82,7 +82,7 @@ function VidPrimary() {
         });
       } catch (error) {
         const axiosError = error as AxiosError;
-        let errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error fetching video";
+        const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error fetching video";
         toast.error(`Failed in fetching video[${vid}]`,{
         description: errorMessage,
       });
@@ -114,7 +114,7 @@ function VidPrimary() {
     } catch (error) {
       console.log(error);
       const axiosError = error as AxiosError;
-      let errorMessage = (axiosError.response?.data as { message: string })?.message ?? "Error in Uploading";
+      const errorMessage = (axiosError.response?.data as { message: string })?.message ?? "Error in Uploading";
       toast.error("Uploading Process Failed", {
         description: errorMessage,
       });
@@ -147,7 +147,7 @@ function VidPrimary() {
       form.reset();
       setSubmitted(false);
     }
-  }, [submitted]);
+  }, [submitted,form]);
 
   return (
     <div className="px-4 md:px-8 lg:px-16 py-6 w-fit">

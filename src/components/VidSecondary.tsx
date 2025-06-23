@@ -46,7 +46,7 @@ function VidSecondary() {
         });
       } catch (error) {
         const axiosError = error as AxiosError;
-        let errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error fetching video";
+        const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error fetching video";
         toast.error(`Failed in fetching video[${vid}]`,{
         description: errorMessage,
       });

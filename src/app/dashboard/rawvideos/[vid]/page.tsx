@@ -23,7 +23,7 @@ type videoProps = {
   cloudinaryPublicID : string
 }
 
-function VideoPage({ params }: { params: { vid: string } }) {
+function VideoPage() {
   const [loading, setLoading] = useState(true);
   const [video, setVideo] = useState<videoProps>({
     vid: "",
@@ -56,7 +56,7 @@ function VideoPage({ params }: { params: { vid: string } }) {
           cloudinaryPublicID: videoData.cloudinaryPublicID || '',
         });
 
-        videoData.cloudinaryPublicID;
+        // videoData.cloudinaryPublicID;
       } catch (error) {
         console.error("Error fetching video:", error);
       } finally {

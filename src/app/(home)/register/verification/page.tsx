@@ -40,7 +40,7 @@ function InputOTPForm() {
     } catch (error) {
       console.error("Error in OTP Verification",error);
       const axiosError = error as AxiosError;
-      let errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error in OTP Verification";
+      const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error in OTP Verification";
       toast.error("OTP Verification Failed",{
         description: errorMessage,
       });

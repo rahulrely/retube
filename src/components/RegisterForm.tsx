@@ -83,7 +83,7 @@ function RegisterForm() {
     } catch (error) {
       console.error("error in signup",error)
       const axiosError = error as AxiosError;
-      let errorMessage = (axiosError.response?.data as {message : string})?.message ?? "error in signUp";
+      const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "error in signUp";
       toast.error("Registeration Failed",{
         description: errorMessage,
       });

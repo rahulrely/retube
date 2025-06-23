@@ -87,7 +87,6 @@ type RawVideo = {
       }
     };
     fetchData();
-    form.reset();
   }, [isSubmiting,form]);
 
   useEffect(() => {
@@ -96,7 +95,7 @@ type RawVideo = {
     setFiles([]);        
     setSubmitted(false); 
   }
-}, [submitted]);
+}, [submitted,form]);
 
 
   const onSubmit = async (data: rawVideoInput) => {
@@ -125,7 +124,7 @@ type RawVideo = {
     } catch (error) {
       console.error("Error in Uploading Raw", error);
       const axiosError = error as AxiosError;
-      let errorMessage = (axiosError.response?.data as { message: string })?.message ?? "Error in Uploading";
+      const errorMessage = (axiosError.response?.data as { message: string })?.message ?? "Error in Uploading";
       toast.error("Uploading Process Failed", {
         description: errorMessage,
       });

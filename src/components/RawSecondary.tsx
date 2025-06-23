@@ -70,7 +70,7 @@ function RawSecondary(){
   } catch (error) {
     console.error("Error in Downloading Raw Video", error);
     const axiosError = error as AxiosError;
-    let errorMessage = (axiosError.response?.data as { message: string })?.message ?? "Error in Uploading";
+    const errorMessage = (axiosError.response?.data as { message: string })?.message ?? "Error in Uploading";
     toast.error("Downlaoding Process Failed", {
       description: errorMessage,
   });

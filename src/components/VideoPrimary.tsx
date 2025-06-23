@@ -51,7 +51,7 @@ function VideoPrimary(){
         setVideos(formatted);
       } catch (error) {
         const axiosError = error as AxiosError;
-        let errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error fetching videos";
+        const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error fetching videos";
         toast.error("Failed in fetching videos",{
         description: errorMessage,
       });

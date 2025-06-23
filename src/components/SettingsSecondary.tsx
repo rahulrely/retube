@@ -36,7 +36,7 @@ type userDetailsType = {
 };
 
 function SettingsSecondary() {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [, setLoading] = useState<boolean>(true);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [userDetails, setUserDetails] = useState<userDetailsType>({
     name: "",
@@ -91,12 +91,18 @@ function SettingsSecondary() {
 
   async function onSubmit(values: nameEditInput) {
     try {
-      const response = await axios.patch("/api/users/editprofile", values); 
-      toast.success("Name updated successfully");
+      const response = await axios.patch("/api/users/editprofile", values);
+      toast.success("Name updated successfully",{
+        description: response.status,
+      });
       setUserDetails((prev) => ({ ...prev, name: values.name }));
       setIsEditing(false);
     } catch (error) {
-      toast.error("Failed to update name");
+      const axiosError = error as AxiosError;
+      const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error in Editting Name";
+      toast.error("Failed to update name",{
+        description:errorMessage
+      });
     }
   }
 
