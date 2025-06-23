@@ -38,21 +38,7 @@ export default function Home() {
       <li>Secure refresh token storage and Google ID mapping</li>
     </ul>
   </div>
-
-  <div className="space-y-3">
-    <h2 className="text-2xl font-semibold">Terms & Conditions</h2>
-    <ul className="list-disc list-inside space-y-2">
-      <li><strong>Account Responsibility:</strong> Users are responsible for keeping their credentials secure.</li>
-      <li><strong>YouTube Integration:</strong> By linking your YouTube account, you authorize Retube to upload videos using your channel.</li>
-      <li><strong>Data Usage:</strong> We store only necessary information such as your email, Google ID, and refresh token (for Primary Users).</li>
-      <li><strong>Content Ownership:</strong> All videos belong to the Primary User’s channel. Secondary Users acknowledge their videos are subject to approval.</li>
-      <li><strong>Token Linking:</strong> Primary Users are responsible for sharing and revoking their invite tokens as needed.</li>
-      <li><strong>Third-Party Dependency:</strong> Our service depends on YouTube API availability and may break if tokens are revoked or scopes are changed.</li>
-      <li><strong>Revoking Access:</strong> You can unlink your Google account any time. Retube will no longer be able to publish content on your behalf after this.</li>
-    </ul>
-  </div>
 </section>
-
     <Footer/>
     </>
   );
