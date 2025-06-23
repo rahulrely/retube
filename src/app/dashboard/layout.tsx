@@ -1,5 +1,5 @@
 "use client"
-import { SidebarHeader, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarProvider} from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { Toaster } from "@/components/ui/sonner"
 import {
@@ -13,7 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { icons, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { Button } from "@/components/ui/button"
 import { useState } from "react";
 import { useRouter } from 'next/navigation';

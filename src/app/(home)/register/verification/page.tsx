@@ -2,33 +2,16 @@
 import {useState} from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp"
 import {VerifyCodeSchema,VerifyCodeInput} from "@/schemas/registerSchema"
 import axios, { AxiosError } from "axios"
 import Footer from "@/components/Footer"
-import HeaderVerification from "@/components/HeaderVerification"
 
 function InputOTPForm() {
   const [isSubmiting,setIsSubmitting] = useState(false);
-  const [verifyCode,setVerifyCode] = useState(false);
   const router = useRouter();
 
   const form = useForm<VerifyCodeInput>({
@@ -69,45 +52,6 @@ function InputOTPForm() {
 <div className='flex flex-col justify-center items-center mt-10 text-white'>
 <div className=" mt-2 p-5 rounded-2xl shadow-2xl w-full max-w-md space-y-4">
         <h2 className="text-3xl font-bold text-center text-white mb-15">Verify Your Acccount</h2>
-        {/* <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-            <FormField
-            control={form.control}
-            name="verifyCode"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>One-Time Password</FormLabel>
-                <FormControl>
-                  <InputOTP maxLength={6} {...field}>
-                    <InputOTPGroup>
-                      <InputOTPSlot index={0} />
-                      <InputOTPSlot index={1} />
-                      <InputOTPSlot index={2} />
-                      <InputOTPSlot index={3} />
-                      <InputOTPSlot index={4} />
-                      <InputOTPSlot index={5} />
-                    </InputOTPGroup>
-                  </InputOTP>
-                </FormControl>
-                <FormDescription>
-                  Please enter the one-time password sent to your email.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-              )}
-            />
-            <Button type="submit" disabled ={isSubmiting}>
-                  {
-                  isSubmiting ? (
-                    <>
-                      <Loader2 className='mr-2 h-4 w-4 animate-spin'/> Please Wait
-                    </>
-                  ) : ("Submit")
-                  }
-                </Button>
-          </form>
-        </Form> */}
-
         <div className='flex flex-col justify-center items-center mt-10 text-white'>
         <div className="mt-2 p-5 rounded-2xl shadow-2xl w-full max-w-md space-y-4">
           <h2 className="text-3xl font-bold text-center text-white mb-4">Skip OTP Verification</h2>

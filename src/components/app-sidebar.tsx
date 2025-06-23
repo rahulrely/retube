@@ -1,4 +1,4 @@
-import { Home, Settings, FileVideo2 , Video ,AppWindow, icons } from "lucide-react"
+import { Home, Settings, FileVideo2 , Video } from "lucide-react"
 
 import {
   Sidebar,
@@ -12,8 +12,6 @@ import {
   SidebarMenuItem,
   SidebarTrigger
 } from "@/components/ui/sidebar"
-import { title } from "process";
-import { url } from "inspector";
 
 // Menu items.
 const items = [
