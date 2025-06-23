@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*', 
-        destination: "http://localhost:8000/api/v1/:path*", ///api/v1/users/register
+        destination: "https://retube2v.onrender.com/api/v1/:path*", ///api/v1/users/register
       },
     ];
   },
