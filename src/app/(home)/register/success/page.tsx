@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import Footer from '@/components/Footer';
+import Link from 'next/link';
 
 function SuccessfullRegistration() {
   const [HTML, setHTML] = useState("");
@@ -36,7 +37,8 @@ function SuccessfullRegistration() {
                 </span><br/>
             </div>
             <div className="flex  space-x-8 lg:order-3">
-            <button className='bg-[#107678] p-2 border rounded'><text className='text-2xl font-bold'>Dashboard</text></button>
+            <button className='bg-[#107678] pl-2 pr-2 pt-1 pb-1 border rounded'><Link href="/dashboard" className='text-xl font-bold'>Dashboard</Link>
+              </button>
             </div>
       </div>
       </nav>
