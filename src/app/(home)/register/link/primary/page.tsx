@@ -34,7 +34,7 @@ function PrimaryLink() {
   const onSubmit = async(data:LinkPrimaryInput) => {
     setIsSubmitting(true);
     try {
-      const response = await axios.post("/api/users/linkprimary",data) ///api/v1/users/register
+      const response = await axios.post("/api/users/linkprimary",data, { withCredentials: true }) ///api/v1/users/register
       toast.success("You are Successfully Linked with Your Primary Account",{
         description: response.data.message
       })

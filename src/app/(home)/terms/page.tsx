@@ -90,10 +90,6 @@ export default function Home(){
           </p>
         </div>
       </section>
-
-      <footer className="mt-12 text-sm text-gray-500 text-center">
-        &copy; 2025 Retube. All rights reserved.
-      </footer>
     </main>
     <Footer/>
     </>

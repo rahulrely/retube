@@ -35,7 +35,7 @@ function LoginPage() {
   const onSubmit = async(data:SignInInput) => {
     setIsSubmitting(true);
     try {
-      const response = await axios.post("/api/users/login",data) ///api/v1/users/register
+      const response = await axios.post("/api/users/login",data, { withCredentials: true }); ///api/v1/users/register
       toast.success("You are Successfully Logged In",{
         description: response.data.message
       })

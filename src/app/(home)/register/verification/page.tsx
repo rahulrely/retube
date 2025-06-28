@@ -24,8 +24,8 @@ function InputOTPForm() {
   const onSubmit = async()=> {
     setIsSubmitting(true);
     try {
-      // const response = await axios.post("/api/users/verify",data);
-      const response = await axios.post("/api/users/bypassVerification");  // changed api endpoint from "verify" to "bypassVerification"
+      // const response = await axios.post("/api/users/verify",data, { withCredentials: true });
+      const response = await axios.post("/api/users/bypassVerification", { withCredentials: true });  // changed api endpoint from "verify" to "bypassVerification"
       console.log('response :',response);
       const role = response?.data?.data?.role;
       toast.success("You are Successfully Verified",{

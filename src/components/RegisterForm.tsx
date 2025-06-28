@@ -74,7 +74,7 @@ function RegisterForm() {
   const onSubmit = async(data:SignUpInput) => {
     setIsSubmitting(true);
     try {
-      const response = await axios.post("/api/users/register",data) ///api/v1/users/register
+      const response = await axios.post("/api/users/register",data, { withCredentials: true }) ///api/v1/users/register
       toast.success("You are Successfully Registered",{
         description: response.data.message
       })
