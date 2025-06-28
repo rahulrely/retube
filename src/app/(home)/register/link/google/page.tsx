@@ -1,13 +1,36 @@
-// app/google/page.tsx
 'use client'
 
-import { useEffect } from 'react';
-import {BACKEND_GOOGLE_URL} from "@/constant.js"
+import { useEffect, useState } from 'react';
+import { BACKEND_GOOGLE_URL } from "@/constant.js";
+import axios from 'axios';
 
 export default function GoogleRedirect() {
+  const [email, setEmail] = useState("");
+
   useEffect(() => {
-    window.location.href = BACKEND_GOOGLE_URL ;
+    const fetchEmail = async () => {
+      try {
+        const response = await axios.get("/api/users/email",{ withCredentials: true });
+        const foundEmail = response.data?.data?.email;
+        if (foundEmail) {
+          setEmail(foundEmail);
+        } else {
+          console.error("Email not found in response");
+        }
+      } catch (error) {
+        console.error("Error fetching email:", error);
+      }
+    };
+
+    fetchEmail();
   }, []);
+
+  useEffect(() => {
+    if (email) {
+      const encodedEmail = encodeURIComponent(email);
+      window.location.href = `${BACKEND_GOOGLE_URL}?email=${encodedEmail}`;
+    }
+  }, [email]);
 
   return (
     <div className="flex justify-center items-center h-screen">
