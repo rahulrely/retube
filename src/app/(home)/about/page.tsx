@@ -10,7 +10,7 @@ export default function Home() {
   <div className="space-y-4">
     <h1 className="text-4xl font-bold">About Retube</h1>
     <p className="text-lg">
-      Retube is a collaborative platform that allows content contributors (Secondary Users) to submit video content to a YouTube channel owned by a Primary User. All content is subject to approval by the Primary User before being published to their YouTube channel.
+      It is a collaborative platform that allows content contributors (Secondary Users) to submit video content to a YouTube channel owned by a Primary User. All content is subject to approval by the Primary User before being published to their YouTube channel.
     </p>
   </div>
 
