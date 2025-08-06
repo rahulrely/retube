@@ -6,6 +6,20 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp"
 import {VerifyCodeSchema,VerifyCodeInput} from "@/schemas/registerSchema"
 import axios, { AxiosError } from "axios"
 import Footer from "@/components/Footer"
@@ -21,11 +35,11 @@ function InputOTPForm() {
     },
   })
 
-  const onSubmit = async()=> {
+  const onSubmit = async(data: VerifyCodeInput)=> {
     setIsSubmitting(true);
     try {
-      // const response = await axios.post("/api/users/verify",data, { withCredentials: true });
-      const response = await axios.post("/api/users/bypassVerification", { withCredentials: true });  // changed api endpoint from "verify" to "bypassVerification"
+      const response = await axios.post("/api/users/verify",data);
+      // const response = await axios.post("/api/users/bypassVerification");  // changed api endpoint from "verify" to "bypassVerification"
       console.log('response :',response);
       const role = response?.data?.data?.role;
       toast.success("You are Successfully Verified",{
@@ -52,24 +66,44 @@ function InputOTPForm() {
 <div className='flex flex-col justify-center items-center mt-10 text-white'>
 <div className=" mt-2 p-5 rounded-2xl shadow-2xl w-full max-w-md space-y-4">
         <h2 className="text-3xl font-bold text-center text-white mb-15">Verify Your Acccount</h2>
-        <div className='flex flex-col justify-center items-center mt-10 text-white'>
-        <div className="mt-2 p-5 rounded-2xl shadow-2xl w-full max-w-md space-y-4">
-          <h2 className="text-3xl font-bold text-center text-white mb-4">Skip OTP Verification</h2>
-          <p className="text-center text-sm text-gray-300">
-            OTP verification is currently disabled for testing. Click below to continue.
-          </p>
-
-          <Button disabled={isSubmiting} onClick={form.handleSubmit(onSubmit)} className="w-full mt-6">
-            {isSubmiting ? (
-              <>
-                <Loader2 className='mr-2 h-4 w-4 animate-spin'/> Please Wait
-              </>
-            ) : (
-              "Continue without OTP"
-            )}
-          </Button>
-        </div>
-      </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+            <FormField
+            control={form.control}
+            name="verifyCode"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>One-Time Password</FormLabel>
+                <FormControl>
+                  <InputOTP maxLength={6} {...field}>
+                    <InputOTPGroup>
+                      <InputOTPSlot index={0} />
+                      <InputOTPSlot index={1} />
+                      <InputOTPSlot index={2} />
+                      <InputOTPSlot index={3} />
+                      <InputOTPSlot index={4} />
+                      <InputOTPSlot index={5} />
+                    </InputOTPGroup>
+                  </InputOTP>
+                </FormControl>
+                <FormDescription>
+                  Please enter the one-time password sent to your email.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+              )}
+            />
+            <Button type="submit" disabled ={isSubmiting}>
+                  {
+                  isSubmiting ? (
+                    <>
+                      <Loader2 className='mr-2 h-4 w-4 animate-spin'/> Please Wait
+                    </>
+                  ) : ("Submit")
+                  }
+                </Button>
+          </form>
+        </Form>
         </div>
         </div>
   <footer className="mt-32"><Footer/></footer>
