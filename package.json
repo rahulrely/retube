@@ -25,7 +25,6 @@
     "cloudinary-core": "^2.13.1",
     "cloudinary-video-player": "^2.5.0",
     "clsx": "^2.1.1",
-    "html2pdf.js": "^0.10.3",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.487.0",
     "motion": "^12.9.2",
