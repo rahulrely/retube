@@ -43,7 +43,8 @@ function PrimaryLink() {
     } catch (error) {
       console.error("Error in Linking Accounts",error)
       const axiosError = error as AxiosError;
-      const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error in linking Accounts";
+      // const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error in linking Accounts";
+      const errorMessage = (axiosError as {message : string})?.message  ?? "Unknown error in linking accounts";
       toast.error("Accounts linking failed",{
         description: errorMessage,
       });
