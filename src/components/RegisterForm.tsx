@@ -81,9 +81,11 @@ function RegisterForm() {
       router.replace("/register/verification");
       setIsSubmitting(false)
     } catch (error) {
-      console.error("error in signup",error)
+      console.error("error in signup",error);
       const axiosError = error as AxiosError;
-      const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "error in signUp";
+      console.log("JI : ",axiosError);
+      // const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "error in signUp";
+      const errorMessage = (axiosError as {message : string})?.message  ?? "Error in Sign up";
       toast.error("Registeration Failed",{
         description: errorMessage,
       });
