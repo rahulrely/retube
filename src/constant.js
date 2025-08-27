@@ -1,4 +1,4 @@
-const BACKEND_GOOGLE_URL = "https://retube2v.onrender.com/api/v1/users/google";
+const BACKEND_GOOGLE_URL = "https://machine.retube.live/api/v1/users/google";
 
 const categories = {
   "1": "Film & Animation",
