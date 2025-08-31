@@ -4,12 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button"
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,10 +21,8 @@ import {
 } from "@/components/ui/input-otp"
 import {ResetPasswordSchema,ResetPasswordInput} from "@/schemas/registerSchema"
 import axios, { AxiosError } from "axios"
-import Footer from "@/components/Footer"
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -33,14 +30,10 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import {
-  AlertDialogCancel,
-} from "@/components/ui/alert-dialog"
 
 function VerifyCard() {
   const [isSubmiting,setIsSubmitting] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
 
   const form = useForm<ResetPasswordInput>({
     resolver: zodResolver(ResetPasswordSchema),

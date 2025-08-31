@@ -3,10 +3,26 @@
 import React, { useState, useEffect } from "react";
 import axios, { AxiosError } from "axios";
 import { nameEditSchema, nameEditInput } from "@/schemas/nameEditSchema";
+import {ResetPasswordSchema,ResetPasswordInput} from "@/schemas/registerSchema"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { UserRoundPen } from "lucide-react";
-
+import RotateCcwKey from "@/icons/rotate-ccw-key.svg";
+import { Loader2 } from 'lucide-react';
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp"
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTrigger,
+  AlertDialogCancel,
+  AlertDialogDescription,
+  AlertDialogTitle,
+  AlertDialogHeader,
+} from "@/components/ui/alert-dialog"
 import {
   Card,
   CardContent,
@@ -19,6 +35,7 @@ import {
   Form,
   FormControl,
   FormField,
+  FormLabel,
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
@@ -36,7 +53,9 @@ type userDetailsType = {
 };
 
 function SettingsPrimary() {
+  const [isSubmiting,setIsSubmitting] = useState(false);
   const [, setLoading] = useState<boolean>(true);
+  const [cooldown, setCooldown] = useState<number>(0);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [userDetails, setUserDetails] = useState<userDetailsType>({
     name: "",
@@ -53,6 +72,15 @@ function SettingsPrimary() {
       name: "",
     },
   });
+
+  const resetPasswordForm = useForm<ResetPasswordInput>({
+        resolver: zodResolver(ResetPasswordSchema),
+        defaultValues: {
+          securityCode: "",
+          password:"",
+          cnfpassword:""
+        },
+      })
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -89,6 +117,23 @@ function SettingsPrimary() {
     fetchUserDetails();
   }, [form]);
 
+  useEffect(() => {
+    if (cooldown <= 0) return;
+
+    const timer = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer); // stop when it hits 0
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [cooldown]);
+
+
   async function onSubmit(values: nameEditInput) {
     try {
       const response = await axios.patch("/api/users/editprofile", values); 
@@ -106,9 +151,47 @@ function SettingsPrimary() {
     }
   }
 
+  async function onSubmitGetVerificationCode(){
+    try {
+      const response = await axios.get("/api/users/profile/verificationcode");
+      console.log('response :',response);
+      toast.success("Verification Code On Email Successfully Sent.",{
+        description: response.data.message
+      });
+      setCooldown(120);
+    } catch (error) {
+      console.error("Unable to Send Email For Verification Code",error);
+      const axiosError = error as AxiosError;
+      const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error password";
+      toast.error("Verification Code failed",{
+        description: errorMessage,
+      });
+    }
+  };
+
+  async function onSubmitResetPassword(values: ResetPasswordInput){
+      setIsSubmitting(true);
+      try {
+        const response = await axios.post("/api/users/profile/passwordreset",values);
+        console.log('response :',response);
+        toast.success("Password Changed Successfully.",{
+          description: response.data.message
+        })
+        setIsSubmitting(false);
+      } catch (error) {
+        console.error("Password Change Failed",error);
+        const axiosError = error as AxiosError;
+        const errorMessage = (axiosError.response?.data as {message : string})?.message ?? "Error password";
+        toast.error("Password Change Failed",{
+          description: errorMessage,
+        });
+        setIsSubmitting(false);
+      }
+    };
+
   return (
-    <div>
-      <Card className="w-90">
+    <div className="grid gap-3 m-3 grid-cols-2">
+          <Card className="w-90 col-span-1">
         <CardHeader>
           <CardTitle>Profile Details</CardTitle>
           <CardDescription>View Your Profile Details</CardDescription>
@@ -165,6 +248,91 @@ function SettingsPrimary() {
             </Button>
           </CardFooter>
         )}
+      </Card>
+
+      <Card className="w-90 col-span-1">
+        <CardHeader>
+          <CardTitle>Security</CardTitle>
+          <CardDescription>View Your Security Details</CardDescription>
+        </CardHeader>
+        <CardContent>
+            <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button disabled={cooldown > 0} onClick={() => onSubmitGetVerificationCode()}><RotateCcwKey/> Reset Your Password</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+          <AlertDialogTitle>Reset Your Password</AlertDialogTitle>
+          <AlertDialogDescription>
+          Please enter the verification code and your new password to proceed.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+                  <Form {...resetPasswordForm}>
+          <form onSubmit={resetPasswordForm.handleSubmit(onSubmitResetPassword)} className="w-2/3 space-y-6">
+            <FormField
+            control={resetPasswordForm.control}
+            name="securityCode"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>One-Time Password</FormLabel>
+                <FormControl>
+                  <InputOTP maxLength={6} {...field}>
+                    <InputOTPGroup>
+                      <InputOTPSlot index={0} />
+                      <InputOTPSlot index={1} />
+                      <InputOTPSlot index={2} />
+                      <InputOTPSlot index={3} />
+                      <InputOTPSlot index={4} />
+                      <InputOTPSlot index={5} />
+                    </InputOTPGroup>
+                  </InputOTP>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+              )}
+            />
+            <FormField
+                control={resetPasswordForm.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="********" {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            <FormField
+                control={resetPasswordForm.control}
+                name="cnfpassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="********" {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" disabled= {isSubmiting} className="w-full">
+          {
+          isSubmiting ? (
+            <>
+              <Loader2 className='mr-2 h-4 w-4 animate-spin'/> Please Wait
+            </>
+          ) : ("Submit")
+          }</Button>
+          </form>
+        </Form>
+              <AlertDialogCancel>Close</AlertDialogCancel>
+            </AlertDialogContent>
+          </AlertDialog>
+          </CardContent>
       </Card>
     </div>
   );

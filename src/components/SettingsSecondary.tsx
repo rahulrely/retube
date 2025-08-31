@@ -21,7 +21,7 @@ import {
   AlertDialogCancel,
   AlertDialogDescription,
   AlertDialogTitle,
-  AlertDialogHeader
+  AlertDialogHeader,
 } from "@/components/ui/alert-dialog"
 import {
   Card,
@@ -38,12 +38,10 @@ import {
   FormLabel,
   FormItem,
   FormMessage,
-  FormDescription
 } from "@/components/ui/form";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import VerifyCard from "./VerifyCard";
 
 type userDetailsType = {
   name: string;
@@ -119,14 +117,21 @@ function SettingsSecondary(){
   }, [form]);
 
   useEffect(() => {
-    if (cooldown > 0) {
-      const timer = setInterval(() => {
-        setCooldown((prev) => prev - 1);
-      }, 1000);
+    if (cooldown <= 0) return;
 
-      return () => clearInterval(timer);
-    }
+    const timer = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer); // stop when it hits 0
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, [cooldown]);
+
 
   async function onSubmit(values: nameEditInput) {
     try {
@@ -151,7 +156,8 @@ function SettingsSecondary(){
       console.log('response :',response);
       toast.success("Verification Code On Email Successfully Sent.",{
         description: response.data.message
-      })
+      });
+      setCooldown(120);
     } catch (error) {
       console.error("Unable to Send Email For Verification Code",error);
       const axiosError = error as AxiosError;
@@ -251,7 +257,7 @@ function SettingsSecondary(){
         <CardContent>
             <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button onClick={() => onSubmitGetVerificationCode()}><RotateCcwKey/> Reset Your Password</Button>
+              <Button disabled={cooldown > 0} onClick={() => onSubmitGetVerificationCode()}><RotateCcwKey/> Reset Your Password</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
@@ -322,7 +328,7 @@ function SettingsSecondary(){
           }</Button>
           </form>
         </Form>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel>Close</AlertDialogCancel>
             </AlertDialogContent>
           </AlertDialog>
           </CardContent>
