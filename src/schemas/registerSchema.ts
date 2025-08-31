@@ -29,10 +29,29 @@ export type SignUpInput = z.infer<typeof signUpSchema>;
 
 export const VerifyCodeSchema = z.object({
   verifyCode: z.string()
-
 });
 
 export type VerifyCodeInput = z.infer<typeof VerifyCodeSchema>
+
+export const ResetPasswordSchema = z.object({
+  securityCode: z.string()
+  .length(6, 'Verification Code must be 6 digits')
+  .regex(/[0-9]/),
+  password: z.string()
+    .min(8, "Password must be at least 8 characters")
+    .max(15, "Password must not exceed 15 characters")
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+    .regex(/[0-9]/, "Password must contain at least one number")
+    .regex(/[\W_]/, "Password must contain at least one special character"),
+  cnfpassword: z.string(),
+})
+.refine((data) => data.password === data.cnfpassword, {
+  message: "Confirm Password don't match",
+  path: ["cnfpassword"], // path of error
+});
+
+export type ResetPasswordInput = z.infer<typeof ResetPasswordSchema>
 
 export const LinkPrimarySchema = z.object({
   email : z.string().email("Invalid Email Address"),
