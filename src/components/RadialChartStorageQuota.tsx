@@ -11,7 +11,7 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
+  // CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -22,7 +22,7 @@ const chartData = [
   {
     browser: "safari",
     videolimit: 2,
-    fill: "hsl(var(--chart-2))", // ✅ fixed fill color
+    fill: "hsl(var(--chart-6))", // ✅ fixed fill color
   },
 ]
 
@@ -32,16 +32,16 @@ const chartConfig = {
   },
   safari: {
     label: "Safari",
-    color: "hsl(var(--chart-2))",
+    color: "hsl(var(--chart-6))",
   },
 } satisfies ChartConfig
 
-export function RadialChart() {
+export function RadialChart(){
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Radial Chart - Text</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Storage</CardTitle>
+        {/* <CardDescription>January - June 2024</CardDescription> */}
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -50,8 +50,8 @@ export function RadialChart() {
         >
           <RadialBarChart
             data={chartData}
-            startAngle={0}
-            endAngle={250}
+            startAngle={90+0}
+            endAngle={90+180}
             innerRadius={80}
             outerRadius={110}
           >
@@ -86,7 +86,7 @@ export function RadialChart() {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Video Limit
+                          Storage Limit (GB)
                         </tspan>
                       </text>
                     )
@@ -99,10 +99,10 @@ export function RadialChart() {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+          Used Storage 1 GB <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Total Storage 2 GB
         </div>
       </CardFooter>
     </Card>

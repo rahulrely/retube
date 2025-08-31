@@ -6,6 +6,7 @@ import { nameEditSchema, nameEditInput } from "@/schemas/nameEditSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { UserRoundPen } from "lucide-react";
+import RotateCcwKey from "@/icons/rotate-ccw-key.svg";
 
 import {
   Card,
@@ -107,8 +108,8 @@ function SettingsSecondary() {
   }
 
   return (
-    <div>
-      <Card className="w-90">
+    <div className="grid gap-3 m-3 grid-cols-2">
+      <Card className="w-90 col-span-1">
         <CardHeader>
           <CardTitle>Profile Details</CardTitle>
           <CardDescription>View Your Profile Details</CardDescription>
@@ -165,6 +166,19 @@ function SettingsSecondary() {
             </Button>
           </CardFooter>
         )}
+      </Card>
+
+      <Card className="w-90 col-span-1">
+        <CardHeader>
+          <CardTitle>Security</CardTitle>
+          <CardDescription>View Your Security Details</CardDescription>
+        </CardHeader>
+        <CardContent>
+            <Button onClick={() => setIsEditing(true)}>
+              {/* <RotateCcwKey/> */}
+              <RotateCcwKey/> Reset Your Password
+            </Button>
+          </CardContent>
       </Card>
     </div>
   );
