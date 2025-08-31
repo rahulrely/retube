@@ -38,7 +38,7 @@ const chartConfig = {
 
 export function RadialChart(){
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col w-60 h-90 mt-15">
       <CardHeader className="items-center pb-0">
         <CardTitle>Storage</CardTitle>
         {/* <CardDescription>January - June 2024</CardDescription> */}
