@@ -18,10 +18,17 @@ import {
 } from "@/components/ui/card"
 import { ChartConfig, ChartContainer } from "@/components/ui/chart"
 
-const chartData = [
+
+export function RadialChart(
+  startangle: number,
+  endangle: number,
+  usedStorageINGB: number,
+  totalStoargeINGB: number
+){
+  const chartData = [
   {
     browser: "safari",
-    videolimit: 2,
+    videolimit: usedStorageINGB,
     fill: "hsl(var(--chart-6))", // ✅ fixed fill color
   },
 ]
@@ -35,8 +42,6 @@ const chartConfig = {
     color: "hsl(var(--chart-6))",
   },
 } satisfies ChartConfig
-
-export function RadialChart(){
   return (
     <Card className="flex flex-col w-60 h-90 mt-15">
       <CardHeader className="items-center pb-0">
@@ -50,8 +55,8 @@ export function RadialChart(){
         >
           <RadialBarChart
             data={chartData}
-            startAngle={90+0}
-            endAngle={90+180}
+            startAngle={90+startangle}
+            endAngle={90+endangle}
             innerRadius={80}
             outerRadius={110}
           >
@@ -99,10 +104,10 @@ export function RadialChart(){
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          Used Storage 1 GB <TrendingUp className="h-4 w-4" />
+          Used Storage {usedStorageINGB} GB <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Total Storage 2 GB
+          Total Storage {totalStoargeINGB} GB
         </div>
       </CardFooter>
     </Card>
