@@ -87,7 +87,7 @@ function LoginPage() {
                   </FormItem>
                 )}
               />
-                <Button type="submit" disabled= {isSubmiting}>
+                <Button type="submit" disabled= {isSubmiting} className='w-full mt-4'>
                   {
                   isSubmiting ? (
                     <>

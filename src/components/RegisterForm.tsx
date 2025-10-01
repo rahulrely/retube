@@ -156,7 +156,7 @@ function RegisterForm() {
                       <FormLabel>Role</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger className='w-full h-12'>
                             <SelectValue placeholder="Select a role"/>
                           </SelectTrigger>
                         </FormControl>
@@ -170,7 +170,7 @@ function RegisterForm() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" disabled= {isSubmiting}>
+                <Button type="submit" disabled= {isSubmiting} className='w-full mt-3'>
                   {
                   isSubmiting ? (
                     <>
