@@ -1,4 +1,4 @@
-const BACKEND_GOOGLE_URL = `${process.env.BACKEND_URL}/api/v1/users/google`;
+const BACKEND_GOOGLE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/users/google`;
 
 const categories = {
   "1": "Film & Animation",

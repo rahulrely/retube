@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
         source: '/api/:path*', 
         // destination: "https://machine.retube.live/api/v1/:path*", ///api/v1/users/register
         // destination: "http://localhost:8000/api/v1/:path*", ///api/v1/users/register
-        destination : `${process.env.BACKEND_URL}/api/v1/:path*`
+        destination : `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/:path*`
       },
     ];
   },
