@@ -2,7 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
   // Use a relative path to work with your Next.js rewrite
-  baseURL: "", 
+  baseURL: "/", 
   
   // This is mandatory for sending session cookies
   withCredentials: true, 
