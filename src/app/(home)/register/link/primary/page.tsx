@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import axios from '@/lib/axios';
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -34,7 +35,7 @@ function PrimaryLink() {
   const onSubmit = async(data:LinkPrimaryInput) => {
     setIsSubmitting(true);
     try {
-      const response = await axios.post("/api/users/linkprimary",data, { withCredentials: true }) ///api/v1/users/register
+      const response = await axios.post("/api/users/linkprimary",data) ///api/v1/users/register
       toast.success("You are Successfully Linked with Your Primary Account",{
         description: response.data.message
       })

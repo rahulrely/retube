@@ -8,7 +8,8 @@ import { videoSchema , videoInput } from "@/schemas/videoSchema";
 import { useForm } from "react-hook-form";
 import { useState , useEffect} from "react";
 import { toast } from "sonner";
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import axios from '@/lib/axios';
 import { Button } from "@/components/ui/button"
 import {
   Form,

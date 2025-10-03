@@ -2,7 +2,8 @@
 import { useRouter } from 'next/navigation';
 import { useState , useEffect} from "react";
 import { toast } from "sonner";
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import axios from '@/lib/axios';
 import {
   Table,
   TableBody,

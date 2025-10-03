@@ -3,7 +3,8 @@
 import { toast } from "sonner";
 import React, { useEffect, useState } from 'react'
 import VideoPlayer from '@/components/VideoPlayer';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import axios from '@/lib/axios';
 import { useParams } from "next/navigation";
 
 type videoProps = {

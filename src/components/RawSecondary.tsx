@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import {Download2} from "@/components/CustomIcon"
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import axios from '@/lib/axios';
 import {
   Table,
   TableBody,

@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+import axios from '@/lib/axios';
 import { nameEditSchema, nameEditInput } from "@/schemas/nameEditSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

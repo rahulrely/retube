@@ -7,7 +7,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from 'next/navigation';
 import { signInSchema,SignInInput} from '@/schemas/signInSchema';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import axios from '@/lib/axios';
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -35,7 +36,7 @@ function LoginPage() {
   const onSubmit = async(data:SignInInput) => {
     setIsSubmitting(true);
     try {
-      const response = await axios.post("/api/users/login",data, { withCredentials: true }); ///api/v1/users/register
+      const response = await axios.post("/api/users/login",data); ///api/v1/users/register
       toast.success("You are Successfully Logged In",{
         description: response.data.message
       })

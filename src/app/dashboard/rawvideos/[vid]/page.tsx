@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import VideoPlayer from '@/components/VideoPlayer';
-import axios from 'axios';
+import axios from '@/lib/axios';
 import { useParams } from 'next/navigation';
 import {
   Card,

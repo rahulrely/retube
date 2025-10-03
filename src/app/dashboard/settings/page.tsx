@@ -3,7 +3,7 @@
 import SettingsPrimary from '@/components/SettingsPrimary'
 import SettingsSecondary from '@/components/SettingsSecondary'
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import axios from '@/lib/axios';
 
 function Settings(){
   const [role,setRole] = useState("");

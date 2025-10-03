@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useRouter} from 'next/navigation';
 import { signUpSchema,SignUpInput} from '@/schemas/registerSchema';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import axios from '@/lib/axios';
 import { Button } from "@/components/ui/button"
 import {
   Form,

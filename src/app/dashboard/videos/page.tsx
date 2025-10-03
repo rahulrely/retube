@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import axios from '@/lib/axios';
 import VideoSecondary from '@/components/VideoSecondary';
 import VideoPrimary from "@/components/VideoPrimary";
 

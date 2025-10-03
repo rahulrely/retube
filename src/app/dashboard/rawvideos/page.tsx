@@ -3,7 +3,7 @@
 import RawPrimary from '@/components/RawPrimary'
 import RawSecondary from '@/components/RawSecondary'
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import axios from '@/lib/axios';
 
 function RawVideos(){
   const [role,setRole] = useState("");

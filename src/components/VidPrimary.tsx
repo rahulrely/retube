@@ -7,7 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from 'react'
 import VideoPlayer from '@/components/VideoPlayer';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import axios from '@/lib/axios';
 import { videoSchemaFinal, videoInputFinal } from "@/schemas/videoSchema";
 import { Button } from "@/components/ui/button"
 import {

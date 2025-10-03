@@ -17,7 +17,8 @@ import { LogOut } from 'lucide-react';
 import { Button } from "@/components/ui/button"
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import axios from '@/lib/axios';
 import { toast } from "sonner";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

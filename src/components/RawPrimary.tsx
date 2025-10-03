@@ -6,7 +6,8 @@ import { rawVideoSchema , rawVideoInput } from "@/schemas/rawVideoSchema";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import axios from '@/lib/axios';
 import { Button } from "@/components/ui/button"
 import {
   Form,

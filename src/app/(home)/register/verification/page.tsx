@@ -21,7 +21,8 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp"
 import {VerifyCodeSchema,VerifyCodeInput} from "@/schemas/registerSchema"
-import axios, { AxiosError } from "axios"
+import { AxiosError } from "axios";
+import axios from '@/lib/axios';
 import Footer from "@/components/Footer"
 
 function InputOTPForm() {
@@ -38,7 +39,7 @@ function InputOTPForm() {
   const onSubmit = async(data: VerifyCodeInput)=> {
     setIsSubmitting(true);
     try {
-      const response = await axios.post("/api/users/verify",data,{withCredentials: true});
+      const response = await axios.post("/api/users/verify",data);
       // const response = await axios.post("/api/users/bypassVerification");  // changed api endpoint from "verify" to "bypassVerification"
       console.log('response :',response);
       const role = response?.data?.data?.role;

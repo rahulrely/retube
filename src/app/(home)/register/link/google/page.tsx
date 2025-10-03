@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { BACKEND_GOOGLE_URL } from "@/constant.js";
-import axios from 'axios';
+import axios from '@/lib/axios';
 
 export default function GoogleRedirect() {
   const [email, setEmail] = useState("");
@@ -10,7 +10,7 @@ export default function GoogleRedirect() {
   useEffect(() => {
     const fetchEmail = async () => {
       try {
-        const response = await axios.get("/api/users/email",{ withCredentials: true });
+        const response = await axios.get("/api/users/email");
         const foundEmail = response.data?.data?.email;
         if (foundEmail) {
           setEmail(foundEmail);
