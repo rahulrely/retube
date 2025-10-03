@@ -55,7 +55,7 @@ function RegisterForm() {
         setIsCheckingEmail(true);
         setEmailMessage("");
         try {
-          const response = await axios.get(`/api/users/emailavailability?email=${email}`);
+          const response = await axios.get(`/api/users/emailavailability?email=${email}`, { withCredentials: true });
           setEmailMessage(response.data.message);
         } catch (error) {
           const axiosError = error as AxiosError;
